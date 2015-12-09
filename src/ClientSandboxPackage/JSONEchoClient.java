@@ -20,6 +20,13 @@ public class JSONEchoClient {
                 System.out.printf("Enter the message to send to the server.\n");
                 String messageForServer = systemInScanner.nextLine();
 
+                // If I put  Thread.currentThread().sleep(10000); here, it allows me to connect initially to the server
+                // and asks for input, but it never reaches the server. When I shut the server side manually, it waited
+                // about a minute on the client and then returned this message: java.net.ConnectException: Connection refused: connect
+
+                // Should I just let it get past the sleep()? I'm assuming it will just complete the process, and allow
+                // me to continue the chat with the server. Ahh - so it is going to sleep before sending it to the server at all.
+
                 URL url = new URL("http://localhost:8080/json");
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setDoOutput(true);//allows POST
